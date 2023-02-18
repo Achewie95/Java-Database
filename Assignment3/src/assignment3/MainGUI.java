@@ -1,5 +1,5 @@
 package assignment3;
-//Ricardo
+//Tom
 import javax.swing.*;
 import java.awt.*;
 
