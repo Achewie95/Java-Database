@@ -2,6 +2,8 @@ package assignment3;
 
 import java.awt.*;
 
+import presentation.MainGUI;
+
 public class Assignment3 {
 
 	public static void main(String[] args) {
@@ -12,6 +14,7 @@ public class Assignment3 {
 			// Creating an instance and initializing the frame, called from ProductMainGUI class
 			MainGUI frame = new MainGUI();
 			frame.setVisible(true);
+			
 		});
 	}
 }
