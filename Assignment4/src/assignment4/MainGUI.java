@@ -7,37 +7,27 @@ import javax.swing.border.TitledBorder;
 
 public class MainGUI extends JFrame{
 
-	private JPanel container;
-	private JPanel legend;
-	private JLabel id;
-	private JTextField txtID;
-	private JLabel fName;
-	private JTextField txtfName;
-	private JLabel lName;
-	private JTextField txtlName;
-	private JLabel mi;
-	private JTextField txtMi;
-	private JLabel address;
-	private JTextField txtAddress;
-	private JLabel city;
-	private JTextField txtCity;
-	private JLabel state;
-	private JTextField txtState;
-	private JLabel tele;
-	private JTextField txtTele;
+	private JPanel container, legend, btnPanel, status;
+	private JLabel id, fName, lName, mi, address, city, state, tele, lblstatus;
+	private JTextField txtID, txtfName, txtlName, txtMi, txtAddress, txtCity, txtState, txtTele;
+	private JButton viewBtn, insertBtn, updateBtn, clearBtn;
 	
 	
 	public MainGUI() {
 		
 		//setting the Frame
 		setTitle("Staff Information");
-		setSize(700,300);
+		setSize(600,300);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(3);
+		setResizable(false);
 		
 		container = new JPanel();
 		createFieldLegend();
+		createButtonPanel();
+		createStatusLabel();
 		add(container);
+		
 	}
 	
 	public void createFieldLegend() {
@@ -50,7 +40,7 @@ public class MainGUI extends JFrame{
 		// To ensure elements take up just the right amount of space
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		// Similar to padding in CSS, setting the spaces between each element
-		gbc.insets = new Insets(10, 15, 5, 20);
+		gbc.insets = new Insets(5, 10, 5, 10);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -89,7 +79,7 @@ public class MainGUI extends JFrame{
 		
 		gbc.gridx = 5;
 		gbc.gridy = 1;
-		txtMi = new JTextField(10);
+		txtMi = new JTextField(3);
 		legend.add(txtMi,gbc);
 		
 		gbc.gridx = 0;
@@ -119,7 +109,7 @@ public class MainGUI extends JFrame{
 		
 		gbc.gridx = 3;
 		gbc.gridy = 3;
-		txtState = new JTextField(10);
+		txtState = new JTextField(3);
 		legend.add(txtState,gbc);
 		
 		gbc.gridx = 0;
@@ -134,4 +124,46 @@ public class MainGUI extends JFrame{
 		
 		container.add(legend);
 	}
+	
+	
+	public void createButtonPanel() {
+		btnPanel = new JPanel();
+		btnPanel.setLayout(new GridBagLayout());
+		btnPanel.setPreferredSize(new Dimension(450,50));
+		
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 10, 5, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 0.0;
+        
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        viewBtn = new JButton("View");
+        btnPanel.add(viewBtn, gbc);
+        
+        gbc.gridx = 1;
+        insertBtn = new JButton("Insert");
+        btnPanel.add(insertBtn,gbc);
+        
+        gbc.gridx = 2;
+        updateBtn = new JButton("Update");
+        btnPanel.add(updateBtn,gbc);
+        
+        gbc.gridx = 3;
+        clearBtn = new JButton("Clear");
+        btnPanel.add(clearBtn, gbc);
+		
+		container.add(btnPanel);
+
+	}
+	
+	public void createStatusLabel() {
+	    status = new JPanel();
+	    lblstatus = new JLabel("Database Connected");
+	    status.add(lblstatus);
+	    container.add(status);
+	}
+	
+	
+	
 }
