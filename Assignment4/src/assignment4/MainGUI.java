@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -20,6 +21,7 @@ public class MainGUI extends JFrame {
 	private JButton viewBtn, insertBtn, updateBtn, clearBtn;
 	private ActionListener listener;
 	private Statement stmt;
+	private final String DB = "JavaDB";
 
 	public MainGUI() {
 		initializeDB();
@@ -58,6 +60,7 @@ public class MainGUI extends JFrame {
 		add(container);
 
 	}
+
 	public void initializeDB() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -66,14 +69,14 @@ public class MainGUI extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-				
+
 		Connection conn;
-		
+
 		try {
 			String pswd = "12345";
-		 conn = DriverManager.getConnection("jdbc:oracle:thin:@calvin.humber.ca:1521:grok", "n01538048", "oracle");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@calvin.humber.ca:1521:grok", "n01538048", "oracle");
 			System.out.println("Connection to DB is established successfully!");
-			stmt = conn.createStatement();			
+			stmt = conn.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -188,18 +191,22 @@ public class MainGUI extends JFrame {
 		gbc.gridy = 0;
 		viewBtn = new JButton("View");
 		btnPanel.add(viewBtn, gbc);
+		viewBtn.addActionListener(listener);
 
 		gbc.gridx = 1;
 		insertBtn = new JButton("Insert");
 		btnPanel.add(insertBtn, gbc);
+		insertBtn.addActionListener(listener);
 
 		gbc.gridx = 2;
 		updateBtn = new JButton("Update");
 		btnPanel.add(updateBtn, gbc);
+		updateBtn.addActionListener(listener);
 
 		gbc.gridx = 3;
 		clearBtn = new JButton("Clear");
 		btnPanel.add(clearBtn, gbc);
+		clearBtn.addActionListener(listener);
 
 		container.add(btnPanel);
 
@@ -213,10 +220,33 @@ public class MainGUI extends JFrame {
 	}
 
 	public void viewStaff() {
+		String id = txtID.getText();
 
+		String sql = "SELECT id, lastname, firstname, mi, address, city, state, telephone FROM staff WHERE id = " + id +";";
+
+		try {
+			ResultSet rs = stmt.executeQuery(sql);
+
+			if (rs.next()) {
+				txtlName.setText(rs.getString("lastname"));
+				txtfName.setText(rs.getString("firstname"));
+				txtMi.setText(rs.getString("mi"));
+				txtAddress.setText(rs.getString("address"));
+				txtCity.setText(rs.getString("city"));
+				txtTele.setText(rs.getString("telephone"));
+
+
+			} else {
+				JOptionPane.showMessageDialog(null, "ID not found");
+			}
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	public void insertStaff() {
+		
 
 	}
 
