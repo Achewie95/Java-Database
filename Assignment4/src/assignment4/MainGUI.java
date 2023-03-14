@@ -222,7 +222,7 @@ public class MainGUI extends JFrame {
 	public void viewStaff() {
 		String id = txtID.getText();
 
-		String sql = "SELECT id, lastname, firstname, mi, address, city, state, telephone FROM staff WHERE id = " + id +";";
+		String sql = "SELECT id, lastname, firstname, mi, address, city, state, telephone FROM staff WHERE id = " + id;
 
 		try {
 			ResultSet rs = stmt.executeQuery(sql);
@@ -233,8 +233,8 @@ public class MainGUI extends JFrame {
 				txtMi.setText(rs.getString("mi"));
 				txtAddress.setText(rs.getString("address"));
 				txtCity.setText(rs.getString("city"));
+				txtState.setText(rs.getString("state"));
 				txtTele.setText(rs.getString("telephone"));
-
 
 			} else {
 				JOptionPane.showMessageDialog(null, "ID not found");
@@ -246,12 +246,59 @@ public class MainGUI extends JFrame {
 	}
 
 	public void insertStaff() {
-		
+		String id = txtID.getText();
+		String lastName = txtlName.getText();
+		String firstName = txtfName.getText();
+		String mi = txtMi.getText();
+		String address = txtAddress.getText();
+		String city = txtCity.getText();
+		String state = txtState.getText();
+		String telephone = txtTele.getText();
+
+		String sql = "INSERT INTO staff (id, lastname, firstname, mi, address, city, state, telephone) VALUES " + "('"
+				+ id + "', '" + lastName + "', '" + firstName + "', '" + mi + "', '" + address + "', '" + city + "', '"
+				+ state + "', '" + telephone + "')";
+
+		try {
+			int rowsAffected = stmt.executeUpdate(sql);
+
+			if (rowsAffected == 1) {
+				JOptionPane.showMessageDialog(null, "The record " + id + " was succesfully inserted.");
+			} else {
+				JOptionPane.showMessageDialog(null, "Could not insert " + id + " record.");
+			}
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 
 	}
 
 	public void updateStaff() {
+		String id = txtID.getText();
+		String lastName = txtlName.getText();
+		String firstName = txtfName.getText();
+		String mi = txtMi.getText();
+		String address = txtAddress.getText();
+		String city = txtCity.getText();
+		String state = txtState.getText();
+		String telephone = txtTele.getText();
 
+		String sql = "UPDATE staff SET lastname = '" + lastName + "', firstname = '" + firstName + "', mi = '" + mi
+				+ "', address = '" + address + "', city = '" + city + "', state = '" + state + "', telephone = '"
+				+ telephone + "' WHERE id = " + id;
+
+		try {
+			int rowsAffected = stmt.executeUpdate(sql);
+
+			if (rowsAffected == 1) {
+				JOptionPane.showMessageDialog(null, "The record " + id + " was successfully updated.");
+			} else {
+				JOptionPane.showMessageDialog(null, "Could not update " + id + " record.");
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	public void clearStaff() {
