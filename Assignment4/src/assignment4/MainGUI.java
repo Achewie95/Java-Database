@@ -222,8 +222,10 @@ public class MainGUI extends JFrame {
 	public void viewStaff() {
 		String id = txtID.getText();
 
-		String sql = "SELECT id, lastname, firstname, mi, address, city, state, telephone FROM staff WHERE id = " + id;
-
+		String sql = "SELECT id, lastname, firstname, upper(mi) as mi, address, city, state, "
+				+ " decode(telephone,null,telephone,substr(telephone,1,3)||'-'||substr(telephone,4,3)||'-'||substr(telephone,7,4)) as telephone "
+				+ " FROM staff WHERE id = " + id;
+		
 		try {
 			ResultSet rs = stmt.executeQuery(sql);
 
@@ -237,10 +239,13 @@ public class MainGUI extends JFrame {
 				txtTele.setText(rs.getString("telephone"));
 
 			} else {
-				JOptionPane.showMessageDialog(null, "ID not found");
+				JOptionPane.showMessageDialog(null, "Record Id " + id + " not found");
 			}
 
 		} catch (SQLException e1) {
+			String errMsg = e1.getLocalizedMessage();
+			if (errMsg.contains("ORA-00936"))
+				JOptionPane.showMessageDialog(null, "Please enter the record id");
 			e1.printStackTrace();
 		}
 	}
@@ -253,7 +258,20 @@ public class MainGUI extends JFrame {
 		String address = txtAddress.getText();
 		String city = txtCity.getText();
 		String state = txtState.getText();
-		String telephone = txtTele.getText();
+		String telephone = txtTele.getText().replace("-","");
+		
+		if (id == null || id.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Please enter the record id.");
+			return;
+		}	
+		if (lastName == null || lastName.isEmpty() || firstName == null || firstName.isEmpty() || telephone == null || telephone.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Please enter the firstname, lastname and telephone.");
+			return;
+		}
+		if (telephone.length() != 10) {
+			JOptionPane.showMessageDialog(null, "Please enter the telephone no with 10 digits");
+			return;
+		}
 
 		String sql = "INSERT INTO staff (id, lastname, firstname, mi, address, city, state, telephone) VALUES " + "('"
 				+ id + "', '" + lastName + "', '" + firstName + "', '" + mi + "', '" + address + "', '" + city + "', '"
@@ -264,11 +282,19 @@ public class MainGUI extends JFrame {
 
 			if (rowsAffected == 1) {
 				JOptionPane.showMessageDialog(null, "The record " + id + " was succesfully inserted.");
+				clearStaff();
 			} else {
 				JOptionPane.showMessageDialog(null, "Could not insert " + id + " record.");
 			}
 
 		} catch (SQLException e1) {
+			String errMsg = e1.getLocalizedMessage();
+			if (errMsg.contains("ORA-00001"))
+				JOptionPane.showMessageDialog(null, "Could not insert record id " + id + " due to duplicate value");
+			else if (errMsg.contains("ORA-01400"))
+				JOptionPane.showMessageDialog(null, "Please enter the record id");
+			else if (errMsg.contains("ORA-12899"))
+				JOptionPane.showMessageDialog(null, "Could not insert the record due to the value too large for column.");
 			e1.printStackTrace();
 		}
 
@@ -282,7 +308,20 @@ public class MainGUI extends JFrame {
 		String address = txtAddress.getText();
 		String city = txtCity.getText();
 		String state = txtState.getText();
-		String telephone = txtTele.getText();
+		String telephone = txtTele.getText().replace("-","");
+		
+		if (id == null || id.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Please enter the record id.");
+			return;
+		}				
+		if (lastName == null || lastName.isEmpty() || firstName == null || firstName.isEmpty() || telephone == null || telephone.isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Please enter the firstname, lastname and telephone.");
+			return;
+		}
+		if (telephone.length() != 10) {
+			JOptionPane.showMessageDialog(null, "Please enter the telephone no 10 digits");
+			return;
+		}
 
 		String sql = "UPDATE staff SET lastname = '" + lastName + "', firstname = '" + firstName + "', mi = '" + mi
 				+ "', address = '" + address + "', city = '" + city + "', state = '" + state + "', telephone = '"
@@ -293,8 +332,9 @@ public class MainGUI extends JFrame {
 
 			if (rowsAffected == 1) {
 				JOptionPane.showMessageDialog(null, "The record " + id + " was successfully updated.");
+				clearStaff();
 			} else {
-				JOptionPane.showMessageDialog(null, "Could not update " + id + " record.");
+				JOptionPane.showMessageDialog(null, "Could not update record id " + id);
 			}
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -302,7 +342,14 @@ public class MainGUI extends JFrame {
 	}
 
 	public void clearStaff() {
-
+		txtID.setText(null);
+		txtlName.setText(null);
+		txtfName.setText(null);
+		txtMi.setText(null);
+		txtAddress.setText(null);
+		txtCity.setText(null);
+		txtState.setText(null);
+		txtTele.setText(null);
 	}
 
 }
