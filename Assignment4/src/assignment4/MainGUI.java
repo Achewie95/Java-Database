@@ -96,7 +96,7 @@ public class MainGUI extends JFrame {
 
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		id = new JLabel("ID: ");
+		id = new JLabel("ID:* ");
 		legend.add(id, gbc);
 
 		gbc.gridx = 1;
@@ -106,7 +106,7 @@ public class MainGUI extends JFrame {
 
 		gbc.gridx = 0;
 		gbc.gridy = 1;
-		fName = new JLabel("First Name: ");
+		fName = new JLabel("First Name:* ");
 		legend.add(fName, gbc);
 
 		gbc.gridx = 1;
@@ -116,7 +116,7 @@ public class MainGUI extends JFrame {
 
 		gbc.gridx = 2;
 		gbc.gridy = 1;
-		lName = new JLabel("Last Name: ");
+		lName = new JLabel("Last Name:* ");
 		legend.add(lName, gbc);
 
 		gbc.gridx = 3;
@@ -166,7 +166,7 @@ public class MainGUI extends JFrame {
 
 		gbc.gridx = 0;
 		gbc.gridy = 4;
-		tele = new JLabel("Telephone: ");
+		tele = new JLabel("Telephone:* ");
 		legend.add(tele, gbc);
 
 		gbc.gridx = 1;
