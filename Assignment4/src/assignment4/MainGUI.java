@@ -21,10 +21,8 @@ public class MainGUI extends JFrame {
 	private JButton viewBtn, insertBtn, updateBtn, clearBtn;
 	private ActionListener listener;
 	private Statement stmt;
-	private final String DB = "JavaDB";
 
 	public MainGUI() {
-		initializeDB();
 
 		// setting the Frame
 		setTitle("Staff Information");
@@ -53,11 +51,15 @@ public class MainGUI extends JFrame {
 
 		// Creating an instance of the listener class
 		listener = new ButtonListener();
+		
+		// Have a container panel to add and arrange all other individual panels
 		container = new JPanel();
 		createFieldLegend();
 		createButtonPanel();
 		createStatusLabel();
 		add(container);
+		
+		initializeDB();
 
 	}
 
@@ -76,16 +78,19 @@ public class MainGUI extends JFrame {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@calvin.humber.ca:1521:grok", "n01538048", "oracle");
 			System.out.println("Connection to DB is established successfully!");
 			stmt = conn.createStatement();
+			lblstatus.setText("Database Connected");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
+	//create the legend field as per example
 	public void createFieldLegend() {
 		legend = new JPanel();
 		legend.setLayout(new GridBagLayout());
 		legend.setBorder(new TitledBorder(new EtchedBorder(), "Staff Information"));
-
+		
+	//use GridBag to ensure position of the elements are uniformed
 		GridBagConstraints gbc = new GridBagConstraints();
 
 		// To ensure elements take up just the right amount of space
@@ -160,7 +165,7 @@ public class MainGUI extends JFrame {
 
 		gbc.gridx = 3;
 		gbc.gridy = 3;
-		txtState = new JTextField(3);
+		txtState = new JTextField(3); //due to GridBag format, this textfield will expand accordingly
 		legend.add(txtState, gbc);
 
 		gbc.gridx = 0;
@@ -176,6 +181,7 @@ public class MainGUI extends JFrame {
 		container.add(legend);
 	}
 
+	// adding the buttons to the container
 	public void createButtonPanel() {
 		btnPanel = new JPanel();
 		btnPanel.setLayout(new GridBagLayout());
@@ -211,9 +217,10 @@ public class MainGUI extends JFrame {
 
 	}
 
+	// create a label to ensure notify the user that the Database is connected
 	public void createStatusLabel() {
 		status = new JPanel();
-		lblstatus = new JLabel("Database Connected");
+		lblstatus = new JLabel("");
 		status.add(lblstatus);
 		container.add(status);
 	}
@@ -236,6 +243,8 @@ public class MainGUI extends JFrame {
 				txtCity.setText(rs.getString("city"));
 				txtState.setText(rs.getString("state"));
 				txtTele.setText(rs.getString("telephone"));
+				
+				txtID.setBackground(Color.YELLOW);
 
 			} else {
 				JOptionPane.showMessageDialog(null, "Record Id " + id + " not found");
