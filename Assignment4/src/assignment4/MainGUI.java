@@ -227,13 +227,17 @@ public class MainGUI extends JFrame {
 	}
 
 	public void viewStaff() {
+		
+		// Get the staff ID from a text field
 		String id = txtID.getText();
 
+		// Construct a SQL Statement to retrieve staff information based on the ID
 		String sql = "SELECT id, lastname, firstname, upper(mi) as mi, address, city, state, "
 				+ " decode(telephone,null,telephone,substr(telephone,1,3)||'-'||substr(telephone,4,3)||'-'||substr(telephone,7,4)) as telephone "
 				+ " FROM staff WHERE id = " + id;
 		
 		try {
+			// Execute the SQL statement and get the result set
 			ResultSet rs = stmt.executeQuery(sql);
 
 			if (rs.next()) {
@@ -248,10 +252,12 @@ public class MainGUI extends JFrame {
 				txtID.setBackground(Color.YELLOW);
 
 			} else {
+				// If a record Id was not found with the given ID
 				JOptionPane.showMessageDialog(null, "Record Id " + id + " not found");
 			}
 
 		} catch (SQLException e1) {
+			// If an SQL exception occurs, display an error message
 			String errMsg = e1.getLocalizedMessage();
 			if (errMsg.contains("ORA-00936"))
 				JOptionPane.showMessageDialog(null, "Please enter the record id");
@@ -260,6 +266,8 @@ public class MainGUI extends JFrame {
 	}
 
 	public void insertStaff() {
+		
+		//Get the input values from GUI
 		String id = txtID.getText();
 		String lastName = txtlName.getText();
 		String firstName = txtfName.getText();
@@ -269,19 +277,29 @@ public class MainGUI extends JFrame {
 		String state = txtState.getText();
 		String telephone = txtTele.getText().replace("-","");
 		
+		// Validate input values to make sure that they are not empty, have the correct format, and meet any other requirements
+		// Check that record id is entered
 		if (id == null || id.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Please enter the record id.");
 			return;
-		}	
+		}
+		// Check the ID is 9 digits long
+		if (id.length() != 9) {
+			JOptionPane.showMessageDialog(null, "Please enter the record id with 9 digits");
+			return;
+		}
+		// Check any other required fields are entered which are lastname, firstname, and telephone no 
 		if (lastName == null || lastName.isEmpty() || firstName == null || firstName.isEmpty() || telephone == null || telephone.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Please enter the firstname, lastname and telephone.");
 			return;
 		}
+		// Check the telephone is 10 digits long
 		if (telephone.length() != 10) {
 			JOptionPane.showMessageDialog(null, "Please enter the telephone no with 10 digits");
 			return;
 		}
 
+		// Construct a SQL statement to insert a new row into database
 		String sql = "INSERT INTO staff (id, lastname, firstname, mi, address, city, state, telephone) VALUES " + "('"
 				+ id + "', '" + lastName + "', '" + firstName + "', '" + mi + "', '" + address + "', '" + city + "', '"
 				+ state + "', '" + telephone + "')";
@@ -297,6 +315,7 @@ public class MainGUI extends JFrame {
 			}
 
 		} catch (SQLException e1) {
+			// If an SQL exception occurs, display an error message based on the oracle error code, which relates to the schema of staff table
 			String errMsg = e1.getLocalizedMessage();
 			if (errMsg.contains("ORA-00001"))
 				JOptionPane.showMessageDialog(null, "Could not insert record id " + id + " due to duplicate value");
@@ -310,6 +329,8 @@ public class MainGUI extends JFrame {
 	}
 
 	public void updateStaff() {
+		
+		//Get the input values from GUI
 		String id = txtID.getText();
 		String lastName = txtlName.getText();
 		String firstName = txtfName.getText();
@@ -319,19 +340,23 @@ public class MainGUI extends JFrame {
 		String state = txtState.getText();
 		String telephone = txtTele.getText().replace("-","");
 		
+		// Check that record id is entered
 		if (id == null || id.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Please enter the record id.");
 			return;
-		}				
+		}
+		// Check any other required fields are entered which are lastname, firstname, and telephone no 
 		if (lastName == null || lastName.isEmpty() || firstName == null || firstName.isEmpty() || telephone == null || telephone.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Please enter the firstname, lastname and telephone.");
 			return;
 		}
+		// Check the telephone is 10 digits long
 		if (telephone.length() != 10) {
 			JOptionPane.showMessageDialog(null, "Please enter the telephone no 10 digits");
 			return;
 		}
-
+		
+		// Construct the SQL update statement
 		String sql = "UPDATE staff SET lastname = '" + lastName + "', firstname = '" + firstName + "', mi = '" + mi
 				+ "', address = '" + address + "', city = '" + city + "', state = '" + state + "', telephone = '"
 				+ telephone + "' WHERE id = " + id;
@@ -351,6 +376,7 @@ public class MainGUI extends JFrame {
 	}
 
 	public void clearStaff() {
+		// Clear all the data from text fields
 		txtID.setText(null);
 		txtlName.setText(null);
 		txtfName.setText(null);
