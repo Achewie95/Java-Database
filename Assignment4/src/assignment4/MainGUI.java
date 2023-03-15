@@ -73,7 +73,6 @@ public class MainGUI extends JFrame {
 		Connection conn;
 
 		try {
-			String pswd = "12345";
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@calvin.humber.ca:1521:grok", "n01538048", "oracle");
 			System.out.println("Connection to DB is established successfully!");
 			stmt = conn.createStatement();
