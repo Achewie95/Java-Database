@@ -322,7 +322,6 @@ public class MainGUI extends JFrame {
 				JOptionPane.showMessageDialog(null, "Please enter the record id");
 			else if (errMsg.contains("ORA-12899"))
 				JOptionPane.showMessageDialog(null, "Could not insert the record due to the value too large for column.");
-			e1.printStackTrace();
 		}
 
 	}
@@ -370,7 +369,13 @@ public class MainGUI extends JFrame {
 				JOptionPane.showMessageDialog(null, "Could not update record id " + id);
 			}
 		} catch (SQLException e1) {
-			e1.printStackTrace();
+			String errMsg = e1.getLocalizedMessage();
+			if (errMsg.contains("ORA-00001"))
+				JOptionPane.showMessageDialog(null, "Could not insert record id " + id + " due to duplicate value");
+			else if (errMsg.contains("ORA-01400"))
+				JOptionPane.showMessageDialog(null, "Please enter the record id");
+			else if (errMsg.contains("ORA-12899"))
+				JOptionPane.showMessageDialog(null, "Could not insert the record due to the value too large for column.");
 		}
 	}
 
@@ -384,6 +389,72 @@ public class MainGUI extends JFrame {
 		txtCity.setText(null);
 		txtState.setText(null);
 		txtTele.setText(null);
+		txtID.setBackground(Color.white);
 	}
 
 }
+
+
+/*************************************************************************************************
+*  Course_Name – Assignment 4                                                                                                                                *
+
+*  I declare that this assignment is my own work in accordance with Humber Academic Policy.        *
+
+*  No part of this assignment has been copied manually or electronically from any other source       *
+
+*  (including web sites) or distributed to other students/social media.                                                       *
+                                                                                                                                                                             
+*  Name: __Amos Chew Syh Ern________ Student ID: ___N01533575_______________ Date: ___15 March 2023_______________ 
+*
+1.	Is your database created correctly? ____Yes________
+2.	Can you create the UI? ___Yes_________
+3.	Can you connect to the database? _Yes_____
+4.	Is the View button implemented correctly? _Yes______________
+5.	Is the Insert button implemented correctly? _Yes_______
+6.	Is the Update button implemented correctly? _Yes_______
+7.	Is the Clear button implemented correctly? _Yes_______
+	
+*/
+
+/*************************************************************************************************
+*  Course_Name – Assignment 4                                                                                                                                *
+
+*  I declare that this assignment is my own work in accordance with Humber Academic Policy.        *
+
+*  No part of this assignment has been copied manually or electronically from any other source       *
+
+*  (including web sites) or distributed to other students/social media.                                                       *
+                                                                                                                                                                             
+*  Name: __Ricardo Joaquin Hornedo Aldeco________ Student ID: ___N01538048___________ Date: ___15 March 2023_______________ 
+*
+1.	Is your database created correctly? ____Yes________
+2.	Can you create the UI? ___Yes_________
+3.	Can you connect to the database? _Yes_____
+4.	Is the View button implemented correctly? _Yes______________
+5.	Is the Insert button implemented correctly? _Yes_______
+6.	Is the Update button implemented correctly? _Yes_______
+7.	Is the Clear button implemented correctly? _Yes_______
+	
+*/
+
+
+/*************************************************************************************************
+*  Course_Name – Assignment 4                                                                                                                                *
+
+*  I declare that this assignment is my own work in accordance with Humber Academic Policy.        *
+
+*  No part of this assignment has been copied manually or electronically from any other source       *
+
+*  (including web sites) or distributed to other students/social media.                                                       *
+                                                                                                                                                                             
+*  Name: __Teerawut Sangpueng________ Student ID: ___N01547659___________ Date: ___15 March 2023_______________ 
+*
+1.	Is your database created correctly? ____Yes________
+2.	Can you create the UI? ___Yes_________
+3.	Can you connect to the database? _Yes_____
+4.	Is the View button implemented correctly? _Yes______________
+5.	Is the Insert button implemented correctly? _Yes_______
+6.	Is the Update button implemented correctly? _Yes_______
+7.	Is the Clear button implemented correctly? _Yes_______
+	
+*/
