@@ -9,4 +9,12 @@ public class AppConstants {
 	public static final String U = "n01533575";
 	
 	public static final String P = "oracle";
+	
+	public static final String DRIVER_CLASS_MYSQL = "com.mysql.cj.jdbc.Driver";
+	
+	public static final String MySQLURL = "jdbc:mysql://localhost:3306/Country";
+	
+	public static final String MYSQLU = "Achew";
+	
+	public static final String password = "12345";
 }

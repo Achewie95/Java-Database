@@ -51,11 +51,11 @@ public class QueryTablePreparedStm2 {
 					System.out.println("----------------------------------------------------------------------------------------");
 					System.out.printf("| %-9s | %-14s | %-15s | %-14s | %-11s |\n", "COUNTRYID",
 							"COUNTRYNAME", "LIFEEXPECTANCY", "COUNTRYREGION", "POPULATION");
+					System.out.println("");
 					while (rset.next()) {
 							System.out.printf("| %-9s | %-14s | %-15s | %-14s | %-11s |\n", rset.getString("COUNTRYID"), 
 									rset.getString("COUNTRYNAME"), rset.getString("LIFEEXPECTANCY"), 
 									rset.getString("COUNTRYREGION"), rset.getString("POPULATION"));
-							System.out.println();	
 					}	
 			} 
 			catch (ClassNotFoundException ce) {
@@ -65,7 +65,22 @@ public class QueryTablePreparedStm2 {
 				e.printStackTrace();
 			}
 
-			
+			finally {
+				try {
+					if (rset != null) {
+						rset.close();
+					}
+					if (pstmt != null) {
+						pstmt.close();
+					}
+					if (conn != null) {
+						conn.close();
+					}
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 			
 		}
 	}
