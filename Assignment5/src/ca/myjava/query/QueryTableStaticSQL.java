@@ -27,7 +27,7 @@ public class QueryTableStaticSQL {
 		
 		System.out.println("Creating a prepared statement");
 		String sql1 = "SELECT COUNTRYID, COUNTRYNAME, LIFEEXPECTANCY, COUNTRYREGION, POPULATION "
-				+ "FROM COUNTRIES WHERE LIFEEXPECTANCY BETWEEN ? AND ? ORDER BY 3 DESC";
+				+ "FROM COUNTRY WHERE LIFEEXPECTANCY BETWEEN ? AND ? ORDER BY 3 DESC";
 		
 		pstmt = conn.prepareStatement(sql1);
 		
