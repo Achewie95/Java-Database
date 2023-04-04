@@ -2,7 +2,6 @@ package ca.myjava.unknown;
 
 import java.sql.*;
 import java.util.Scanner;
-import ca.myjava.query.AppConstants;
 
 public class AnySQL {
 
@@ -75,8 +74,7 @@ public class AnySQL {
 					pstmt.close();
 				if (conn != null)
 					conn.close();
-			} catch (SQLException e) {
-				
+			} catch (SQLException e) {	
 		}	
 	}
 	}
