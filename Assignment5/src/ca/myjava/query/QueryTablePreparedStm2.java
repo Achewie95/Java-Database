@@ -49,13 +49,13 @@ public class QueryTablePreparedStm2 {
 
 					
 					System.out.println("----------------------------------------------------------------------------------------");
-					System.out.printf("| %-9s | %-14s | %-15s | %-14s | %-11s |\n", "COUNTRY_ID",
-							"COUNTRY_NAME", "LIFE_EXPECT_AT_BIRTH", "lOCATION", "POPULATION");
+					System.out.printf("| %-9s | %-14s | %-15s | %-14s | %-11s |\n", "COUNTRYID",
+							"COUNTRYNAME", "LIFEEXPECTANCY", "COUNTRYREGION", "POPULATION");
 					System.out.println("");
 					while (rset.next()) {
-							System.out.printf("| %-9s | %-14s | %-15s | %-14s | %-11s |\n", rset.getString("COUNTRY_ID"), 
-									rset.getString("COUNTRY_NAME"), rset.getString("LIFE_EXPECT_AT_BIRTH"), 
-									rset.getString("lOCATION"), rset.getString("POPULATION"));
+							System.out.printf("| %-9s | %-14s | %-15s | %-14s | %-11s |\n", rset.getString("COUNTRYID"), 
+									rset.getString("COUNTRYNAME"), rset.getString("LIFEEXPECTANCY"), 
+									rset.getString("COUNTRYREGION"), rset.getString("POPULATION"));
 					}	
 			} 
 			catch (ClassNotFoundException ce) {
