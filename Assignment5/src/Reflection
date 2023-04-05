@@ -1,0 +1,28 @@
+Assignment Submission Form
+==========================================================================
+I/we declare that the attached assignment is my/our own work in accordance with Humber Academic Policy.
+Nopart of this assignment has been copied manually or electronically from any other source 
+(including web sites) or distributed to other students.
+
+
+Name(s) 								Student ID(s)
+
+Teerawut Sangpueng						N01547659
+Ricardo Hornedo							N01538048
+Amos Chew								N01533575
+----------------------------------------------------------------------------------------------------------
+
+
+Broken down into 3 separate packages, we each took one package to work on it.
+
+First package: We were required to create two classes to query the Country table in our database. 
+The classes should display information of countries that have a LifeExpectancy between two values using a prepared statement.
+
+Second package: Creating the AnySQL class, this class allows users to input SQL commands from the 
+console and execute them using the JDBC API
+
+Third package: We created three classes to run SQL statements for inserting, updating, and deleting data
+from the Country table. 
+
+Using GitHub, we were able to work together and share the code across each other. However we were using local databases to get the data.
+
