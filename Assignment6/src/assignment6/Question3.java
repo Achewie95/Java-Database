@@ -15,8 +15,7 @@ public class Question3 {
 		new Thread2();
 	}
 
-	// Declare a static inner class for the first Thread, to implements the Runnable
-	// interface
+	// Declare a static inner class for the first Thread, to implements the Runnable interface
 	static class Thread1 implements Runnable {
 
 		// Thread1 constructor
@@ -45,8 +44,7 @@ public class Question3 {
 		}
 	}
 
-	// Declare a static inner class named Thread2 that implements the Runnable
-	// interface
+	// Declare a static inner class named Thread2 that implements the Runnable interface
 	static class Thread2 implements Runnable {
 
 		// Thread2 constructor
