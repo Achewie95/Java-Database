@@ -1,3 +1,4 @@
+package assignment6;
 import javax.swing.*;
 
 import java.awt.*;

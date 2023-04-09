@@ -1,3 +1,4 @@
+package assignment6;
 import java.util.concurrent.*;
 
 public class question2 {
